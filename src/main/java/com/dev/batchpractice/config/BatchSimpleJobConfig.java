@@ -1,6 +1,5 @@
 package com.dev.batchpractice.config;
 
-import com.dev.batchpractice.tasklet.SimpleJobTasklet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -10,11 +9,10 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.infrastructure.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @RequiredArgsConstructor
-public class BatchSimpleConfig {
+public class BatchSimpleJobConfig {
 
 	private final JobRepository jobRepository;
 
