@@ -3,10 +3,12 @@ package com.dev.batchpractice.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+@Builder
 @Getter
 @Entity
 @Table(name = "batch_input")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class BatchInput {
 
 	@Id

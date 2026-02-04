@@ -54,7 +54,7 @@ public class DataInitializationTasklet implements Tasklet {
 			if (batch.size() >= BATCH_SIZE) {
 				batchInputRepository.saveAll(batch);
 				batch.clear();
-				if (i % 10000 == 0) {
+				if (i % 100 == 0) {
 					log.info("Created {} test data...", i);
 				}
 			}

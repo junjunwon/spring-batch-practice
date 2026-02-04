@@ -3,17 +3,20 @@ package com.dev.batchpractice.config;
 import com.dev.batchpractice.entity.BatchInput;
 import com.dev.batchpractice.entity.BatchOutput;
 import com.dev.batchpractice.processor.ApiCallItemProcessor;
-import com.dev.batchpractice.reader.BatchInputReader;
 import com.dev.batchpractice.tasklet.DataInitializationTasklet;
 import com.dev.batchpractice.tasklet.FailStepTasklet;
 import com.dev.batchpractice.writer.BatchOutputWriter;
+import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.Step;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.infrastructure.item.database.JpaPagingItemReader;
+import org.springframework.batch.infrastructure.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -27,11 +30,11 @@ public class BatchJobConfig {
 	private final PlatformTransactionManager transactionManager;
 	private final DataInitializationTasklet dataInitializationTasklet;
 	private final FailStepTasklet failStepTasklet;
-	private final BatchInputReader batchInputReader;
+	private final JpaPagingItemReader<BatchInput> batchInputReader;
 	private final ApiCallItemProcessor apiCallItemProcessor;
 	private final BatchOutputWriter batchOutputWriter;
 
-	private static final int CHUNK_SIZE = 1000;
+	private static final int CHUNK_SIZE = 10;
 
 	@Bean
 	public Job dataProcessingJob() {
@@ -59,6 +62,16 @@ public class BatchJobConfig {
 	}
 
 	@Bean
+	public Step dataProcessingStep() {
+		return new StepBuilder("dataProcessingStep", jobRepository)
+				.<BatchInput, BatchOutput>chunk(CHUNK_SIZE)
+				.reader(batchInputReader)
+				.processor(apiCallItemProcessor)
+				.writer(batchOutputWriter)
+				.build();
+	}
+
+	@Bean
 	public Step failStep() {
 		return new StepBuilder("failStep", jobRepository)
 				.tasklet(failStepTasklet, transactionManager)
@@ -66,14 +79,13 @@ public class BatchJobConfig {
 	}
 
 	@Bean
-	public Step dataProcessingStep() {
-		return new StepBuilder("dataProcessingStep", jobRepository)
-			.<BatchInput, BatchOutput>chunk(CHUNK_SIZE)
-			.reader(batchInputReader)
-			.processor(apiCallItemProcessor)
-			.writer(batchOutputWriter)
-			.build();
+	@StepScope
+	public JpaPagingItemReader<BatchInput> batchInputReader(EntityManagerFactory entityManagerFactory) {
+		return new JpaPagingItemReaderBuilder<BatchInput>()
+				.name("batchInputReader")
+				.entityManagerFactory(entityManagerFactory)
+				.queryString("SELECT b FROM BatchInput b WHERE b.processed = false ORDER BY b.id")
+				.pageSize(CHUNK_SIZE)
+				.build();
 	}
-
-
 }

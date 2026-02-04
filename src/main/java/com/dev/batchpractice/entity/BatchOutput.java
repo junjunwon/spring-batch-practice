@@ -5,10 +5,12 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Builder
 @Getter
 @Entity
 @Table(name = "batch_output")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class BatchOutput {
 
 	@Id
