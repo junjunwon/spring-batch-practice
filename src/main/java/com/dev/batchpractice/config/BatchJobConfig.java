@@ -2,6 +2,7 @@ package com.dev.batchpractice.config;
 
 import com.dev.batchpractice.entity.BatchInput;
 import com.dev.batchpractice.entity.BatchOutput;
+import com.dev.batchpractice.listener.BatchPerformanceListener;
 import com.dev.batchpractice.processor.ApiCallItemProcessor;
 import com.dev.batchpractice.tasklet.DataInitializationTasklet;
 import com.dev.batchpractice.tasklet.FailStepTasklet;
@@ -34,6 +35,8 @@ public class BatchJobConfig {
 	private final ApiCallItemProcessor apiCallItemProcessor;
 	private final BatchOutputWriter batchOutputWriter;
 
+	private final BatchPerformanceListener batchPerformanceListener;
+
 	@Bean
 	public Job dataProcessingJob(Step dataInitializationStep, Step dataProcessingStep, Step failStep) {
 		return new JobBuilder("dataProcessingJob", jobRepository)
@@ -49,6 +52,7 @@ public class BatchJobConfig {
 						.on("*")
 						.end()
 				.end()
+				.listener(batchPerformanceListener)
 				.build();
 	}
 
@@ -56,6 +60,7 @@ public class BatchJobConfig {
 	public Step dataInitializationStep() {
 		return new StepBuilder("dataInitializationStep", jobRepository)
 				.tasklet(dataInitializationTasklet, transactionManager)
+				.listener(batchPerformanceListener)
 				.build();
 	}
 
@@ -66,6 +71,7 @@ public class BatchJobConfig {
 				.reader(batchInputReader)
 				.processor(apiCallItemProcessor)
 				.writer(batchOutputWriter)
+				.listener(batchPerformanceListener)
 				.build();
 	}
 
@@ -73,6 +79,7 @@ public class BatchJobConfig {
 	public Step failStep() {
 		return new StepBuilder("failStep", jobRepository)
 				.tasklet(failStepTasklet, transactionManager)
+				.listener(batchPerformanceListener)
 				.build();
 	}
 }
