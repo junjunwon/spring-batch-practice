@@ -12,18 +12,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class BatchOutputWriter implements ItemWriter<BatchOutput> {
 
-	@PersistenceContext
-	private EntityManager entityManager;
-
 	@Override
-	public void write(Chunk<? extends BatchOutput> chunk) throws Exception {
-		for (BatchOutput item : chunk.getItems()) {
-			if (item.getId() == null) {
-				entityManager.persist(item);
-			} else {
-				entityManager.merge(item);
-			}
-		}
-		entityManager.flush();
+	public void write(Chunk<? extends BatchOutput> chunk) {
+		log.info("Writing {} BatchOutput items", chunk.getItems().size());
 	}
 }

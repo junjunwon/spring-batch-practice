@@ -22,7 +22,7 @@ public class ExternalApiService {
 			// 실제 API 호출 로직이 여기에 들어갑니다
 			// 예: RestTemplate, WebClient 등을 사용한 HTTP 호출
 			
-			log.debug("External API called for data: {}", inputData);
+			log.info("External API called for data: {}", inputData);
 			
 			// 시뮬레이션된 응답 반환
 			return "Processed: " + inputData;

@@ -33,6 +33,7 @@ public class BatchJobConfig {
 	private final JpaPagingItemReader<BatchInput> batchInputReader;
 	private final ApiCallItemProcessor apiCallItemProcessor;
 	private final BatchOutputWriter batchOutputWriter;
+	private final EntityManagerFactory entityManagerFactory;
 
 	private static final int CHUNK_SIZE = 10;
 
@@ -80,7 +81,7 @@ public class BatchJobConfig {
 
 	@Bean
 	@StepScope
-	public JpaPagingItemReader<BatchInput> batchInputReader(EntityManagerFactory entityManagerFactory) {
+	public JpaPagingItemReader<BatchInput> batchInputReader() {
 		return new JpaPagingItemReaderBuilder<BatchInput>()
 				.name("batchInputReader")
 				.entityManagerFactory(entityManagerFactory)

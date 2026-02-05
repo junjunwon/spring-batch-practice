@@ -4,7 +4,6 @@ import com.dev.batchpractice.entity.BatchInput;
 import com.dev.batchpractice.repository.BatchInputRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.StepContribution;
 import org.springframework.batch.core.step.tasklet.Tasklet;
@@ -25,27 +24,27 @@ public class DataInitializationTasklet implements Tasklet {
 
 	@Override
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-		long count = batchInputRepository.countByProcessedFalse();
-		
-		if (count == 0) {
-			log.info("Starting to create {} test data...", TOTAL_COUNT);
-			createTestData(TOTAL_COUNT);
+		long totalCount = batchInputRepository.count();
+
+		if (totalCount == 0) {
+			log.info("BatchInput table is empty. Creating {} test data...", TOTAL_COUNT);
+			createTestData();
 			log.info("Finished creating {} test data.", TOTAL_COUNT);
 		} else {
-			log.info("Test data already exists. Count: {}", count);
+			log.info("BatchInput table already has data. Total count: {}, skipping creation.", totalCount);
 		}
-		
+
 		return RepeatStatus.FINISHED;
 	}
 
-	private void createTestData(int totalCount) {
-		List<BatchInput> batch = new ArrayList<>();
+	private void createTestData() {
+		List<BatchInput> batch = new ArrayList<>(BATCH_SIZE);
 
-		for (int i = 1; i <= totalCount; i++) {
+		for (int i = 1; i <= DataInitializationTasklet.TOTAL_COUNT; i++) {
 			BatchInput input = BatchInput.builder()
 					.name("TestData-" + i)
 					.data("Data-" + i + "-" + System.currentTimeMillis())
-					.status(i % 10)
+					.status(i % BATCH_SIZE)
 					.processed(false)
 					.build();
 
@@ -54,14 +53,13 @@ public class DataInitializationTasklet implements Tasklet {
 			if (batch.size() >= BATCH_SIZE) {
 				batchInputRepository.saveAll(batch);
 				batch.clear();
-				if (i % 100 == 0) {
-					log.info("Created {} test data...", i);
-				}
+				log.info("Created {} / {} test data...", i, DataInitializationTasklet.TOTAL_COUNT);
 			}
 		}
 
 		if (!batch.isEmpty()) {
 			batchInputRepository.saveAll(batch);
+			log.info("Created {} / {} test data...", DataInitializationTasklet.TOTAL_COUNT, DataInitializationTasklet.TOTAL_COUNT);
 		}
 	}
 }
