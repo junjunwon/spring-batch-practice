@@ -15,14 +15,15 @@ import org.springframework.stereotype.Component;
 public class BatchScheduler {
 
     private final JobOperator jobOperator; // 6 버전부터 JobLauncher -> JobOperator로 통합
-    private final Job dataProcessingJob; // 배치잡 이름으로 식별됨
+    private final Job simpleTaskletJob; // 배치잡 이름으로 식별됨
 
-    @Scheduled(cron = "10 30 17 * * ?")
+    @Scheduled(cron = "40 24 10 * * ?")
     public void runBatch() throws Exception {
         JobParameters jobParameters = new JobParametersBuilder()
             .addLong("timestamp", System.currentTimeMillis())
+            .addString("name", "jihyun")
             .toJobParameters();
 
-        jobOperator.start(dataProcessingJob, jobParameters);
+        jobOperator.start(simpleTaskletJob, jobParameters);
     }
 }
