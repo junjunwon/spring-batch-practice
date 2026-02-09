@@ -29,7 +29,7 @@ public class BatchSimpleTaskletJobConfig {
 
     @Bean
     public Step simpleTaskletStep() {
-        return new StepBuilder("simpleStep", jobRepository)
+        return new StepBuilder("simpleTaskletStep", jobRepository)
             .tasklet(simpleJobTasklet)
             .build();
     }
