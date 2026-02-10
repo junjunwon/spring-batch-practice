@@ -1,4 +1,4 @@
-package com.dev.batchpractice.validator;
+package com.dev.batchpractice.job.jobparameterflow;
 
 import org.springframework.batch.core.job.parameters.InvalidJobParametersException;
 import org.springframework.batch.core.job.parameters.JobParameters;

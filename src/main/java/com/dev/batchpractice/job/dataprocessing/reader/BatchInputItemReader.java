@@ -1,6 +1,6 @@
-package com.dev.batchpractice.reader;
+package com.dev.batchpractice.job.dataprocessing.reader;
 
-import com.dev.batchpractice.entity.BatchInput;
+import com.dev.batchpractice.domain.entity.BatchInput;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

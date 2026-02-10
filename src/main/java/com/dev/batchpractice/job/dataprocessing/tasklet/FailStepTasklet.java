@@ -1,4 +1,4 @@
-package com.dev.batchpractice.tasklet;
+package com.dev.batchpractice.job.dataprocessing.tasklet;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;

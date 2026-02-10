@@ -1,7 +1,5 @@
-package com.dev.batchpractice.config;
+package com.dev.batchpractice.job.jobparameterflow;
 
-import com.dev.batchpractice.tasklet.SimpleJobTasklet;
-import com.dev.batchpractice.validator.ParameterValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -13,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class BatchSimpleTaskletJobConfig {
+public class JobParameterFlowJobConfig {
 
     private final JobRepository jobRepository;
-    private final SimpleJobTasklet simpleJobTasklet;
+    private final JobParameterFlowTasklet jobParameterFlowTasklet;
     private final ParameterValidator parameterValidator;
 
     @Bean
@@ -30,7 +28,7 @@ public class BatchSimpleTaskletJobConfig {
     @Bean
     public Step simpleTaskletStep() {
         return new StepBuilder("simpleTaskletStep", jobRepository)
-            .tasklet(simpleJobTasklet)
+            .tasklet(jobParameterFlowTasklet)
             .build();
     }
 }

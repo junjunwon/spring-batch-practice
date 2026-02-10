@@ -1,4 +1,4 @@
-package com.dev.batchpractice.tasklet;
+package com.dev.batchpractice.job.jobparameterflow;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
@@ -16,12 +16,12 @@ import java.util.Map;
 @Slf4j
 @Component
 @StepScope
-public class SimpleJobTasklet implements Tasklet {
+public class JobParameterFlowTasklet implements Tasklet {
 
     private final String name;
 
     // 늦은 바인딩(Late Binding)
-    public SimpleJobTasklet(@Value("#{jobParameters['name']}") String name) {
+    public JobParameterFlowTasklet(@Value("#{jobParameters['name']}") String name) {
         this.name = name;
     }
 

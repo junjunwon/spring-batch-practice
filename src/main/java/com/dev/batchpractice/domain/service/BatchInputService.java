@@ -1,7 +1,7 @@
-package com.dev.batchpractice.service;
+package com.dev.batchpractice.domain.service;
 
-import com.dev.batchpractice.entity.BatchInput;
-import com.dev.batchpractice.repository.BatchInputRepository;
+import com.dev.batchpractice.domain.entity.BatchInput;
+import com.dev.batchpractice.domain.repository.BatchInputRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

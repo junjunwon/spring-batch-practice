@@ -1,8 +1,6 @@
-package com.dev.batchpractice.writer;
+package com.dev.batchpractice.job.dataprocessing.writer;
 
-import com.dev.batchpractice.entity.BatchOutput;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import com.dev.batchpractice.domain.entity.BatchOutput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.infrastructure.item.Chunk;
 import org.springframework.batch.infrastructure.item.ItemWriter;

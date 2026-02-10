@@ -1,4 +1,4 @@
-package com.dev.batchpractice.entity;
+package com.dev.batchpractice.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
