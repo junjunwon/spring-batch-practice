@@ -21,7 +21,7 @@ public class JobParameterFlowJobConfig {
     CompositeJobParametersValidator parameterValidator;
 
     @Bean
-    public Job simpleTaskletJob() {
+    public Job jobParameterFlowTaskletJob() {
         return new JobBuilder("jobParameterFlowTaskletJob", jobRepository)
                 .start(jobParameterFlowStep())
                 .validator(parameterValidator)
