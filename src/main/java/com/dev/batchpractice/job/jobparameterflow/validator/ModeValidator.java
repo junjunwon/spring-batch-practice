@@ -3,10 +3,12 @@ package com.dev.batchpractice.job.jobparameterflow.validator;
 import org.springframework.batch.core.job.parameters.InvalidJobParametersException;
 import org.springframework.batch.core.job.parameters.JobParameters;
 import org.springframework.batch.core.job.parameters.JobParametersValidator;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+@Order(1)
 @Component
 public class ModeValidator implements JobParametersValidator {
 
