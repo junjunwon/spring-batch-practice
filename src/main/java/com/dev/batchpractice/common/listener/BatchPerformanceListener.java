@@ -1,4 +1,4 @@
-package com.dev.batchpractice.listener;
+package com.dev.batchpractice.common.listener;
 
 import java.time.ZoneId;
 import lombok.extern.slf4j.Slf4j;

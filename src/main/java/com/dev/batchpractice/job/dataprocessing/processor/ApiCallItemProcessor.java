@@ -1,8 +1,8 @@
-package com.dev.batchpractice.processor;
+package com.dev.batchpractice.job.dataprocessing.processor;
 
-import com.dev.batchpractice.entity.BatchInput;
-import com.dev.batchpractice.entity.BatchOutput;
-import com.dev.batchpractice.service.ExternalApiService;
+import com.dev.batchpractice.domain.entity.BatchInput;
+import com.dev.batchpractice.domain.entity.BatchOutput;
+import com.dev.batchpractice.domain.service.ExternalApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.infrastructure.item.ItemProcessor;

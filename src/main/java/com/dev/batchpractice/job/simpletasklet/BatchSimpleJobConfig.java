@@ -1,4 +1,4 @@
-package com.dev.batchpractice.config;
+package com.dev.batchpractice.job.simpletasklet;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.job.Job;
