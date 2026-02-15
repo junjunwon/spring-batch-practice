@@ -3,7 +3,9 @@ package com.dev.batchpractice.job.jobparameterflow.validator;
 import org.springframework.batch.core.job.parameters.InvalidJobParametersException;
 import org.springframework.batch.core.job.parameters.JobParameters;
 import org.springframework.batch.core.job.parameters.JobParametersValidator;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FileModeValidator implements JobParametersValidator {
 
     @Override

@@ -1,7 +1,9 @@
 package com.dev.batchpractice.job.jobparameterflow.validator;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.job.parameters.CompositeJobParametersValidator;
 import org.springframework.batch.core.job.parameters.DefaultJobParametersValidator;
+import org.springframework.batch.core.job.parameters.JobParametersValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +16,7 @@ import java.util.List;
  * - name : 사용자 식별 값 (항상 필요)
  * - mode : 실행 모드 (FULL / DELTA / FILE 중 하나)
  * <p>
- *  2. FULL 모드
+ * 2. FULL 모드
  * - 전체 데이터 처리
  * - 추가 파라미터 없음
  * <p>
@@ -41,13 +43,16 @@ import java.util.List;
  * ===== 검증 규칙 =====
  * <p>
  * - mode 값은 FULL, DELTA, FILE 중 하나여야 함
- *  <p>
+ * <p>
  * - DELTA 모드 → startDate, endDate 없으면 실행 실패
- *  <p>
+ * <p>
  * - FILE 모드 → fileName 없으면 실행 실패
  */
 @Configuration
+@RequiredArgsConstructor
 public class JobParameterValidatorConfig {
+
+    private final List<JobParametersValidator> validators;
 
     @Bean
     public CompositeJobParametersValidator parametersValidator() {
@@ -62,12 +67,8 @@ public class JobParameterValidatorConfig {
 
         CompositeJobParametersValidator composite = new CompositeJobParametersValidator();
 
-        composite.setValidators(List.of(
-                requiredValidator,
-                new ModeValidator(),
-                new DeltaModeValidator(),
-                new FileModeValidator()
-        ));
+        // 공통 타입인 JobParametersValidator 인터페이스를 구현한 모든 검증기를 자동으로 주입받아 설정
+        composite.setValidators(validators);
 
         return composite;
     }

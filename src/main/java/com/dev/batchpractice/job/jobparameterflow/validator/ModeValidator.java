@@ -3,9 +3,11 @@ package com.dev.batchpractice.job.jobparameterflow.validator;
 import org.springframework.batch.core.job.parameters.InvalidJobParametersException;
 import org.springframework.batch.core.job.parameters.JobParameters;
 import org.springframework.batch.core.job.parameters.JobParametersValidator;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+@Component
 public class ModeValidator implements JobParametersValidator {
 
     private static final Set<String> VALID_MODES = Set.of("FULL", "DELTA", "FILE");
