@@ -129,7 +129,7 @@ public class JobParameterValidatorConfig {
         DefaultJobParametersValidator requiredValidator =
                 new DefaultJobParametersValidator(
                         new String[]{"name", "mode"},
-                        new String[]{"startDate", "endDate", "fileName"}
+                        new String[]{"startDate", "endDate", "fileName", "currentDate"}
                 );
 
         requiredValidator.afterPropertiesSet();
