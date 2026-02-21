@@ -1,7 +1,7 @@
-package com.dev.batchpractice.tasklet;
+package com.dev.batchpractice.job.dataprocessing.tasklet;
 
-import com.dev.batchpractice.entity.BatchInput;
-import com.dev.batchpractice.repository.BatchInputRepository;
+import com.dev.batchpractice.domain.entity.BatchInput;
+import com.dev.batchpractice.domain.repository.BatchInputRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.scope.context.ChunkContext;

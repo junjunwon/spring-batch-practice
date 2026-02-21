@@ -1,12 +1,12 @@
-package com.dev.batchpractice.config;
+package com.dev.batchpractice.job.dataprocessing;
 
-import com.dev.batchpractice.entity.BatchInput;
-import com.dev.batchpractice.entity.BatchOutput;
-import com.dev.batchpractice.listener.BatchPerformanceListener;
-import com.dev.batchpractice.processor.ApiCallItemProcessor;
-import com.dev.batchpractice.tasklet.DataInitializationTasklet;
-import com.dev.batchpractice.tasklet.FailStepTasklet;
-import com.dev.batchpractice.writer.BatchOutputWriter;
+import com.dev.batchpractice.domain.entity.BatchInput;
+import com.dev.batchpractice.domain.entity.BatchOutput;
+import com.dev.batchpractice.common.listener.BatchPerformanceListener;
+import com.dev.batchpractice.job.dataprocessing.processor.ApiCallItemProcessor;
+import com.dev.batchpractice.job.dataprocessing.tasklet.DataInitializationTasklet;
+import com.dev.batchpractice.job.dataprocessing.tasklet.FailStepTasklet;
+import com.dev.batchpractice.job.dataprocessing.writer.BatchOutputWriter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.job.Job;

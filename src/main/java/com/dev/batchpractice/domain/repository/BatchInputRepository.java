@@ -1,6 +1,6 @@
-package com.dev.batchpractice.repository;
+package com.dev.batchpractice.domain.repository;
 
-import com.dev.batchpractice.entity.BatchInput;
+import com.dev.batchpractice.domain.entity.BatchInput;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
