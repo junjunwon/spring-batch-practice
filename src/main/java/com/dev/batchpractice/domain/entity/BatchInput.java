@@ -3,6 +3,8 @@ package com.dev.batchpractice.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.ResultSet;
+
 @Builder
 @Getter
 @Entity
@@ -15,16 +17,28 @@ public class BatchInput {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
-	private String name;
+	@Column(name = "inputName", nullable = false)
+	private String inputName;
 
-	@Column(nullable = false)
+	@Column(name = "data", nullable = false)
 	private String data;
 
-	@Column(nullable = false)
-	private Integer status;
+	@Column(name = "inputStatus", nullable = false)
+	private Integer inputStatus;
 
 	@Column(name = "processed", nullable = false)
 	@Builder.Default
 	private Boolean processed = false;
+
+	public BatchInput(ResultSet rs) {
+		try {
+			this.id = rs.getLong("id");
+//			this.inputName = rs.getString("input_name");
+			this.data = rs.getString("data");
+//			this.inputStatus = rs.getInt("input_status");
+			this.processed = rs.getBoolean("processed");
+		} catch (Exception e) {
+			throw new RuntimeException("Error mapping ResultSet to BatchInput", e);
+		}
+	}
 }

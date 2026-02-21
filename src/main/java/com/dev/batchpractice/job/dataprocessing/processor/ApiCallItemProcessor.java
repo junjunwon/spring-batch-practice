@@ -17,7 +17,7 @@ public class ApiCallItemProcessor implements ItemProcessor<BatchInput, BatchOutp
 
 	@Override
 	public BatchOutput process(BatchInput item) {
-		log.info("Processing item: id={}, name={}", item.getId(), item.getName());
+		log.info("Processing item: id={}, name={}", item.getId(), item.getInputName());
 
 		// 외부 API 호출 (150ms 응답 시간)
 		String apiResponse = externalApiService.callExternalApi(item.getData());
@@ -28,7 +28,7 @@ public class ApiCallItemProcessor implements ItemProcessor<BatchInput, BatchOutp
 		// BatchOutput 엔티티 생성
 		BatchOutput output = BatchOutput.builder()
 				.inputId(item.getId())
-				.name(item.getName())
+				.name(item.getInputName())
 				.originalData(item.getData())
 				.processedData(processedData)
 				.apiResponse(apiResponse)

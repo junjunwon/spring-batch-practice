@@ -42,9 +42,9 @@ public class DataInitializationTasklet implements Tasklet {
 
 		for (int i = 1; i <= DataInitializationTasklet.TOTAL_COUNT; i++) {
 			BatchInput input = BatchInput.builder()
-					.name("TestData-" + i)
+					.inputName("TestData-" + i)
 					.data("Data-" + i + "-" + System.currentTimeMillis())
-					.status(i % BATCH_SIZE)
+					.inputStatus(i % BATCH_SIZE)
 					.processed(false)
 					.build();
 
