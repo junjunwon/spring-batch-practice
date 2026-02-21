@@ -1,6 +1,6 @@
-package com.dev.batchpractice.reader.mapper;
+package com.dev.batchpractice.job.dataprocessing.reader.mapper;
 
-import com.dev.batchpractice.entity.BatchInput;
+import com.dev.batchpractice.domain.entity.BatchInput;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

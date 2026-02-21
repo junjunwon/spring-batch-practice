@@ -1,7 +1,7 @@
-package com.dev.batchpractice.reader;
+package com.dev.batchpractice.job.dataprocessing.reader;
 
-import com.dev.batchpractice.entity.BatchInput;
-import com.dev.batchpractice.reader.mapper.BatchInputRowMapper;
+import com.dev.batchpractice.domain.entity.BatchInput;
+import com.dev.batchpractice.job.dataprocessing.reader.mapper.BatchInputRowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.infrastructure.item.database.JdbcCursorItemReader;
