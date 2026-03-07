@@ -55,11 +55,6 @@ public class JobParameterFlowTasklet implements Tasklet {
         jobContext.put("user.name", name + "_updated");
         log.info("Updated ExecutionContext in JobExecution: {}", jobContext);
 
-        // 간단한 처리 로직 예시
-        log.info("작업 처리 중...");
-        Thread.sleep(1000); // 1초 대기 (실제 작업 시뮬레이션)
-        log.info("작업 완료!");
-
         /**
          * on이 캐치하는 상태값이 BatchStatus가 아닌 ExitStatus이기 때문에
          * Step이 실패한 것으로 처리하려면 ExitStatus를 FAILED로 설정해야 한다.

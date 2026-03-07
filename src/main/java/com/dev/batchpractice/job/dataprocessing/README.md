@@ -66,3 +66,21 @@
 - 실패/재시작 시 ExecutionContext를 활용한 재처리 지점 관리
 - 스루풋 측정 및 병렬 처리(TaskExecutor) 적용으로 성능 개선
 
+---
+
+## JobParameters 검증 및 파라미터 관리
+
+- `JobParametersValidator`를 활용하여 Job 실행 전 파라미터 검증 가능
+- 여러 Validator를 조합하는 Composite 구조 확장 가능
+- 실행 모드별 Validator 분리 및 @Qualifier로 선택 주입 가능
+- 파라미터 Late Binding: `@StepScope`, `@Value("#{jobParameters['name']}")` 등 사용 시 Job 실행 시점에 파라미터 주입
+
+---
+
+## incrementer와 외부 파라미터 동시 사용 이슈
+
+- Job에 incrementer가 존재하면 외부 파라미터(run.id 등) 무시됨 → incrementer 결과만 사용
+- 실무 적용 기준:
+  - 외부 파라미터 기반 Job: incrementer 사용하지 않음
+  - 자동 재실행 Job: incrementer 사용
+  - 실행 시점에 run.id 또는 timestamp 직접 추가 방식 권장

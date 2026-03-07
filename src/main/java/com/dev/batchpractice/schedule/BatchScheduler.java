@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class BatchScheduler {
 
     private final JobOperator jobOperator; // 6 버전부터 JobLauncher -> JobOperator로 통합
-    private final Job simpleTaskletJob; // 배치잡 이름으로 식별됨
+    private final Job jobParameterFlowTaskletJob; // 배치잡 이름으로 식별됨
 
     @Scheduled(cron = "40 24 10 * * ?")
     public void runBatch() throws Exception {
@@ -24,6 +24,6 @@ public class BatchScheduler {
             .addString("name", "jihyun")
             .toJobParameters();
 
-        jobOperator.start(simpleTaskletJob, jobParameters);
+        jobOperator.start(jobParameterFlowTaskletJob, jobParameters);
     }
 }

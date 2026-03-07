@@ -3,9 +3,11 @@ package com.dev.batchpractice.job.jobparameterflow;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.job.parameters.CompositeJobParametersValidator;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.Step;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,20 +17,22 @@ public class JobParameterFlowJobConfig {
 
     private final JobRepository jobRepository;
     private final JobParameterFlowTasklet jobParameterFlowTasklet;
-    private final ParameterValidator parameterValidator;
+    private final @Qualifier("parametersValidator")
+    CompositeJobParametersValidator parameterValidator;
 
     @Bean
-    public Job simpleTaskletJob() {
-        return new JobBuilder("simpleTaskletJob", jobRepository)
-            .start(simpleTaskletStep())
-            .validator(parameterValidator)
-            .build();
+    public Job jobParameterFlowTaskletJob() {
+        return new JobBuilder("jobParameterFlowTaskletJob", jobRepository)
+                .start(jobParameterFlowStep())
+                .validator(parameterValidator)
+//                .incrementer(new DailyJobTimestamper())
+                .build();
     }
 
     @Bean
-    public Step simpleTaskletStep() {
-        return new StepBuilder("simpleTaskletStep", jobRepository)
-            .tasklet(jobParameterFlowTasklet)
-            .build();
+    public Step jobParameterFlowStep() {
+        return new StepBuilder("jobParameterFlowStep", jobRepository)
+                .tasklet(jobParameterFlowTasklet)
+                .build();
     }
 }
